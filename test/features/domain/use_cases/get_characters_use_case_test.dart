@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel_plus/core/errors/failures.dart';
 import 'package:marvel_plus/features/domain/entities/character_entity.dart';
 import 'package:marvel_plus/features/domain/entities/character_image_entity.dart';
-import 'package:marvel_plus/features/domain/entities/request_pagination.dart';
+import 'package:marvel_plus/features/domain/entities/request_pagination_entity.dart';
 import 'package:marvel_plus/features/domain/repositories/character_repository.dart';
 import 'package:marvel_plus/features/domain/use_cases/get_characters_use_case.dart';
 import 'package:mocktail/mocktail.dart';
@@ -33,7 +33,7 @@ void main() {
     )
   ];
 
-  final requestPagination = RequestPagination(limit: 4, offset: 0);
+  final requestPagination = RequestPaginationEntity(limit: 4, offset: 0);
 
   test(
     'should get a list of characters from the repository',

@@ -8,6 +8,8 @@ class CharacterThumbnailModel extends CharacterThumbnailEntity {
 
   factory CharacterThumbnailModel.fromJson(Map<String, dynamic> json) {
     return CharacterThumbnailModel(
-        path: json['path'], extension: json['extension']);
+      path: json['path'],
+      extension: json['extension'],
+    );
   }
 }

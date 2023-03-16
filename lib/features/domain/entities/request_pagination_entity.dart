@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-class RequestPagination extends Equatable{
+class RequestPaginationEntity extends Equatable{
   final int limit;
   final int offset;
 
-  RequestPagination({
+  RequestPaginationEntity({
     required this.limit,
     required this.offset,
   });

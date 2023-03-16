@@ -1,5 +1,7 @@
 import 'package:marvel_plus/core/errors/exceptions.dart';
 import 'package:marvel_plus/core/http_client/http_client.dart';
+import 'package:marvel_plus/core/keys/marvel_api_keys.dart';
+import 'package:marvel_plus/core/utils/crypto_util.dart';
 import 'package:marvel_plus/features/data/data_sources/character_data_source.dart';
 import 'package:marvel_plus/features/data/data_sources/services/endpoints/marvel_endpoints.dart';
 import 'package:marvel_plus/features/data/data_sources/services/status_codes.dart';
@@ -15,7 +17,17 @@ class CharacterDataSourceImpl implements CharacterDataSource {
   Future<List<CharacterModel>> getCharacters({
     required RequestPaginationEntity requestPagination,
   }) async {
-    final response = await httpClient.get(MarvelEndpoints.v1Characters);
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+
+    final hash = generateMd5(
+        '$timestamp${MarvelApiKeys.privateKey}${MarvelApiKeys.publicKey}');
+
+    final url = '${MarvelEndpoints.v1Characters}?ts=$timestamp'
+        '&apikey=${MarvelApiKeys.publicKey}'
+        '&hash=$hash&offset=${requestPagination.offset}'
+        '&limit=${requestPagination.limit}';
+
+    final response = await httpClient.get(url);
 
     if (listStatusSuccess.contains(response.statusCode)) {
       final jsonDataList = response.data['data']['results'] as List;

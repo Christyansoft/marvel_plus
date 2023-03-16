@@ -25,7 +25,7 @@ void main() {
 
   final characterJson = json.decode(jsonRead('characters.json'));
   final requestPagination = RequestPaginationModel(limit: 4, offset: 0);
-  const url = 'https://gateway.marvel.com/v1/public/characters';
+
 
   final listCharactersModel = [
     const CharacterModel(
@@ -48,6 +48,13 @@ void main() {
     //Act
     await characterDataSource.getCharacters(
         requestPagination: requestPagination);
+
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+
+    final url =
+        'https://gateway.marvel.com/v1/public/characters?'
+        'ts=$timestamp&apikey=3419a5231cbe524b66f322974e387ab5'
+        '&hash=&offset=0&limit=4';
 
     //Assert
     verify(() => httpClient.get(url)).called(1);

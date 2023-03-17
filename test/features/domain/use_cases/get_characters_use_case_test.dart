@@ -35,7 +35,7 @@ void main() {
     )
   ];
 
-  final requestPagination = const RequestPaginationEntity(limit: 4, offset: 0);
+  const requestPagination = RequestPaginationEntity(limit: 4, offset: 0);
 
   test(
     'should get a list of characters from the repository',

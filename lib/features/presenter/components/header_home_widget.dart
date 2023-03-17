@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class HeaderHomeWidget extends StatelessWidget {
-
   final Function(String text) onChangedText;
   final Function onTapCloseButton;
   final TextEditingController textEditingController;
@@ -62,7 +61,15 @@ class HeaderHomeWidget extends StatelessWidget {
                     suffixIcon: IconButton(
                       onPressed: () => onTapCloseButton(),
                       splashRadius: 18,
-                      icon: const Icon(Icons.close),
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                      ),
                     ),
                     border: const OutlineInputBorder(
                       borderSide: BorderSide(
@@ -70,7 +77,8 @@ class HeaderHomeWidget extends StatelessWidget {
                       ),
                     ),
                     enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
                 ),
               ),

@@ -1,13 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
-
   String? message;
-
 }
 
 class ServerFailure extends Failure {
-
   @override
   final String? message;
 

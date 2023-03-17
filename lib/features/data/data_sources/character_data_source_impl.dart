@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:marvel_plus/core/errors/exceptions.dart';
 import 'package:marvel_plus/core/http_client/http_client.dart';
 import 'package:marvel_plus/core/keys/marvel_api_keys.dart';
@@ -30,7 +32,10 @@ class CharacterDataSourceImpl implements CharacterDataSource {
     final response = await httpClient.get(url);
 
     if (listStatusSuccess.contains(response.statusCode)) {
-      final jsonDataList = response.data['data']['results'] as List;
+
+      var decodedResponse = json.decode(response.data) as Map;
+
+      final jsonDataList = decodedResponse['data']['results'] as List;
 
       return jsonDataList.map((e) => CharacterModel.fromJson(e)).toList();
     } else {

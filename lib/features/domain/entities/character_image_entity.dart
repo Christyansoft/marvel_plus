@@ -9,6 +9,8 @@ class CharacterThumbnailEntity extends Equatable {
     required this.extension,
   });
 
+  String get imageUrl => '$path.$extension';
+
   @override
   List<Object?> get props => [path, extension];
 }

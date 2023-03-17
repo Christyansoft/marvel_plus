@@ -16,8 +16,13 @@ class HomePage extends GetView<HomeController> {
       body: SafeArea(
         child: Obx(
           () => controller.isLoadingAllData.value
-              ? const Center(child: CircularProgressIndicator())
+              ? Center(
+                  child: CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor,
+                ))
               : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     HeaderHomeWidget(
                       onChangedText: controller.onChangedText,
@@ -25,6 +30,14 @@ class HomePage extends GetView<HomeController> {
                       textEditingController: controller.textSearchController,
                     ),
                     controller.obx(
+                      onLoading: Container(
+                        margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height / 3),
+                        child: Center(
+                            child: CircularProgressIndicator(
+                          color: Theme.of(context).primaryColor,
+                        )),
+                      ),
                       (state) {
                         late List<CharacterEntity> listCharacters;
 

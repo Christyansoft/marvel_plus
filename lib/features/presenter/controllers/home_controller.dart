@@ -17,11 +17,36 @@ class HomeController extends GetxController
   final listPages = [0, 1, 2, 3];
   var listCharactersSearched = [].obs;
   final textSearchController = TextEditingController();
+  final pageController = PageController();
+
+  late List<int> listTotalCharacters;
+  late int totalNumberPages;
+
+  int indexPageViewSelected = 0;
+
+  List<int> listCurrentRangePages = [];
 
   @override
   void onInit() async {
+    listTotalCharacters = List.generate(17, (index) => index);
+    totalNumberPages =
+        (listTotalCharacters.length / ServicesConstants.offsetDefaultCharacters)
+            .ceil();
+
     getCharacters();
     super.onInit();
+  }
+
+  List<int> getRangePages({required int index}) {
+    int start = index * ServicesConstants.offsetDefaultCharacters;
+    int end = (index + 1) * ServicesConstants.offsetDefaultCharacters;
+
+    if (end > listTotalCharacters.length) {
+      end = listTotalCharacters.length;
+    }
+
+    listCurrentRangePages = listTotalCharacters.getRange(start, end).toList();
+    return listCurrentRangePages;
   }
 
   void changePage(int index) {
@@ -33,21 +58,21 @@ class HomeController extends GetxController
   }
 
   goToNextPage() {
-    if (indexPageSelected.value != listPages.length - 1) {
-      indexPageSelected++;
+    pageController.nextPage(
+        duration: const Duration(milliseconds: 400), curve: Curves.ease);
 
-      change([], status: RxStatus.loading());
-      getCharacters();
-    }
+    indexPageSelected.value = listCurrentRangePages.last + 1;
+    change([], status: RxStatus.loading());
+    getCharacters();
   }
 
   goToPreviousPage() {
-    if (indexPageSelected.value != 0) {
-      indexPageSelected--;
+    pageController.previousPage(
+        duration: const Duration(milliseconds: 400), curve: Curves.ease);
 
-      change([], status: RxStatus.loading());
-      getCharacters();
-    }
+    indexPageSelected.value = listCurrentRangePages.first - 1;
+    change([], status: RxStatus.loading());
+    getCharacters();
   }
 
   Future<void> getCharacters() async {

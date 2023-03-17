@@ -4,7 +4,7 @@ import 'package:marvel_plus/core/manager/dependency_manager.dart';
 import 'package:marvel_plus/features/presenter/pages/home_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

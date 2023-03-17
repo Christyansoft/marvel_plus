@@ -45,11 +45,19 @@ class HomePage extends GetView<HomeController> {
                                 return Column(
                                   children: [
                                     GestureDetector(
-                                      onTap: controller.goToDetailsPage,
-                                      child: CharacterCardWidget(
-                                        name: item.name,
-                                        imageUrl: item
-                                            .characterThumbnailEntity.imageUrl,
+                                      onTap: () => controller.goToDetailsPage(
+                                        characterEntity: item,
+                                      ),
+                                      child: Hero(
+                                        tag: item.id,
+                                        child: Material(
+                                          child: CharacterCardWidget(
+                                            name: item.name,
+                                            imageUrl: item
+                                                .characterThumbnailEntity
+                                                .imageUrl,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     Container(

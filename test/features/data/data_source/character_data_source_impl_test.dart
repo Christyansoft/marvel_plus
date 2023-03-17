@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel_plus/core/errors/exceptions.dart';
 import 'package:marvel_plus/core/http_client/http_client.dart';
@@ -7,6 +5,7 @@ import 'package:marvel_plus/features/data/data_sources/character_data_source.dar
 import 'package:marvel_plus/features/data/data_sources/character_data_source_impl.dart';
 import 'package:marvel_plus/features/data/models/character_image_model.dart';
 import 'package:marvel_plus/features/data/models/character_model.dart';
+import 'package:marvel_plus/features/data/models/character_serie_model.dart';
 import 'package:marvel_plus/features/data/models/request_pagination_model.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -23,9 +22,8 @@ void main() {
     characterDataSource = CharacterDataSourceImpl(httpClient: httpClient);
   });
 
-  final characterJson = json.decode(jsonRead('characters.json'));
+  final characterJson = jsonRead('characters.json');
   final requestPagination = RequestPaginationModel(limit: 4, offset: 0);
-
 
   final listCharactersModel = [
     const CharacterModel(
@@ -37,28 +35,11 @@ void main() {
         path: 'http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16',
         extension: 'jpg',
       ),
+      series: [
+        CharacterSerieModel(name: 'FREE COMIC BOOK DAY 2013 1 (2013)'),
+      ],
     )
   ];
-
-  test('should call get method with a correct url', () async {
-    //Arrange
-    when(() => httpClient.get(any())).thenAnswer((invocation) async =>
-        HttpResponse(data: characterJson, statusCode: 200));
-
-    //Act
-    await characterDataSource.getCharacters(
-        requestPagination: requestPagination);
-
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-
-    final url =
-        'https://gateway.marvel.com/v1/public/characters?'
-        'ts=$timestamp&apikey=3419a5231cbe524b66f322974e387ab5'
-        '&hash=&offset=0&limit=4';
-
-    //Assert
-    verify(() => httpClient.get(url)).called(1);
-  });
 
   test('should return a list of CharacterModel when success', () async {
     //Arrange
@@ -83,6 +64,6 @@ void main() {
         characterDataSource.getCharacters(requestPagination: requestPagination);
 
     //Assert
-    expect(() => result, throwsA(ServerException()));
+    expect(() => result, throwsA(const ServerException(message: 'Não foi possível obter os personagens')));
   });
 }

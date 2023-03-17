@@ -5,6 +5,7 @@ import 'package:marvel_plus/core/errors/failures.dart';
 import 'package:marvel_plus/features/data/data_sources/character_data_source.dart';
 import 'package:marvel_plus/features/data/models/character_image_model.dart';
 import 'package:marvel_plus/features/data/models/character_model.dart';
+import 'package:marvel_plus/features/data/models/character_serie_model.dart';
 import 'package:marvel_plus/features/data/models/request_pagination_model.dart';
 import 'package:marvel_plus/features/data/repositories/character_repository_impl.dart';
 import 'package:mocktail/mocktail.dart';
@@ -31,6 +32,9 @@ void main() {
         path: 'http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16',
         extension: 'jpg',
       ),
+      series: [
+        CharacterSerieModel(name: 'FREE COMIC BOOK DAY 2013 1 (2013)'),
+      ],
     )
   ];
 
@@ -56,13 +60,13 @@ void main() {
       () async {
     // Arrange
     when(() => characterDataSource.getCharacters(
-        requestPagination: requestPagination)).thenThrow(ServerException());
+        requestPagination: requestPagination)).thenThrow(const ServerException());
 
     //Act
     final result = await characterRepositoryImpl.getCharacters(
         requestPagination: requestPagination);
 
     //Assert
-    expect(result, Left(ServerFailure()));
+    expect(result, Left(ServerFailure(message: 'Não foi possível obter os personagens')));
   });
 }

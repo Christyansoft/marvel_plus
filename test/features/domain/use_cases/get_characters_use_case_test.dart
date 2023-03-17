@@ -1,6 +1,7 @@
 import 'package:either_dart/either.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel_plus/core/errors/failures.dart';
+import 'package:marvel_plus/features/domain/entities/character_serie_entity.dart';
 import 'package:marvel_plus/features/domain/entities/character_entity.dart';
 import 'package:marvel_plus/features/domain/entities/character_image_entity.dart';
 import 'package:marvel_plus/features/domain/entities/request_pagination_entity.dart';
@@ -30,10 +31,11 @@ void main() {
         path: 'http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16',
         extension: 'jpg',
       ),
+      series: [CharacterSerieEntity(name: 'FREE COMIC BOOK DAY 2013 1 (2013)')],
     )
   ];
 
-  final requestPagination = RequestPaginationEntity(limit: 4, offset: 0);
+  final requestPagination = const RequestPaginationEntity(limit: 4, offset: 0);
 
   test(
     'should get a list of characters from the repository',
@@ -42,7 +44,8 @@ void main() {
               requestPagination: requestPagination))
           .thenAnswer((_) async => Right(listCharacters));
 
-      final result = await getCharactersUseCase(requestPagination: requestPagination);
+      final result =
+          await getCharactersUseCase(requestPagination: requestPagination);
 
       expect(result, Right(listCharacters));
 
@@ -51,15 +54,15 @@ void main() {
     },
   );
 
-
   test(
     'should return a failure when do not have success',
-        () async {
+    () async {
       when(() => characterRepository.getCharacters(
-          requestPagination: requestPagination))
+              requestPagination: requestPagination))
           .thenAnswer((_) async => Left(ServerFailure()));
 
-      final result = await getCharactersUseCase(requestPagination: requestPagination);
+      final result =
+          await getCharactersUseCase(requestPagination: requestPagination);
 
       expect(result, Left(ServerFailure()));
 
@@ -67,5 +70,4 @@ void main() {
           requestPagination: requestPagination)).called(1);
     },
   );
-
 }

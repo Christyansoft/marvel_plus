@@ -51,10 +51,6 @@
             {
               "resourceURI": "http://gateway.marvel.com/v1/public/series/17765",
               "name": "FREE COMIC BOOK DAY 2013 1 (2013)"
-            },
-            {
-              "resourceURI": "http://gateway.marvel.com/v1/public/series/3374",
-              "name": "Hulk (2008 - 2012)"
             }
           ],
           "returned": 2

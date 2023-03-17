@@ -4,7 +4,7 @@ class RequestPaginationEntity extends Equatable{
   final int limit;
   final int offset;
 
-  RequestPaginationEntity({
+  const RequestPaginationEntity({
     required this.limit,
     required this.offset,
   });

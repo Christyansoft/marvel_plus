@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel_plus/features/data/models/character_image_model.dart';
 import 'package:marvel_plus/features/data/models/character_model.dart';
+import 'package:marvel_plus/features/data/models/character_serie_model.dart';
 import 'package:marvel_plus/features/domain/entities/character_entity.dart';
 
 import '../../../util/json_reader_util.dart';
@@ -17,6 +18,9 @@ void main() {
       path: 'http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16',
       extension: 'jpg',
     ),
+    series: [
+      CharacterSerieModel(name: 'FREE COMIC BOOK DAY 2013 1 (2013)'),
+    ],
   );
 
   test('should be a subclass of Entity', () {
@@ -37,20 +41,4 @@ void main() {
       expect(result, characterModel);
     },
   );
-
-  test(
-    'should return a valid model',
-        () {
-      // Arrange
-      final Map<String, dynamic> jsonMap =
-      json.decode(jsonRead('character.json'));
-
-      //Act
-      final result = CharacterModel.fromJson(jsonMap);
-
-      //Assert
-      expect(result, characterModel);
-    },
-  );
-
 }

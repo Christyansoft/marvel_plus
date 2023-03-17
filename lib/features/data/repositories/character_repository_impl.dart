@@ -20,7 +20,8 @@ class CharacterRepositoryImpl implements CharacterRepository {
 
       return Right(result);
     } on ServerException {
-      return Left(ServerFailure());
+      return Left(
+          ServerFailure(message: 'Não foi possível obter os personagens'));
     }
   }
 }

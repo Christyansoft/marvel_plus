@@ -8,16 +8,13 @@ import 'package:marvel_plus/features/presenter/controllers/home_controller.dart'
 class DependencyManager implements Bindings {
   @override
   void dependencies() {
-    Get.put(
-      GetCharactersUseCase(
-        characterRepository: Get.put(
-          CharacterRepositoryImpl(
-            characterDataSource:
-                CharacterDataSourceImpl(httpClient: HttpClientImpl()),
-          ),
-        ),
-      ),
-    );
-    Get.put(HomeController(getCharactersUseCase: Get.find()));
+    Get.lazyPut(() => HttpClientImpl());
+    Get.lazyPut(
+        () => CharacterDataSourceImpl(httpClient: Get.find<HttpClientImpl>()));
+    Get.lazyPut(() => CharacterRepositoryImpl(
+        characterDataSource: Get.find<CharacterDataSourceImpl>()));
+    Get.lazyPut(() => GetCharactersUseCase(
+        characterRepository: Get.find<CharacterRepositoryImpl>()));
+    Get.lazyPut(() => HomeController(getCharactersUseCase: Get.find()));
   }
 }

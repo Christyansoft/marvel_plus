@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:marvel_plus/features/data/data_sources/services/services_constants.dart';
 import 'package:marvel_plus/features/domain/entities/character_entity.dart';
 import 'package:marvel_plus/features/domain/entities/request_pagination_entity.dart';
 import 'package:marvel_plus/features/domain/use_cases/get_characters_use_case.dart';
@@ -50,15 +51,17 @@ class HomeController extends GetxController
   }
 
   Future<void> getCharacters() async {
-    final requestPagination =
-        RequestPaginationEntity(limit: 4, offset: indexPageSelected.value * 4);
+    final requestPagination = RequestPaginationEntity(
+      limit: ServicesConstants.offsetDefaultCharacters,
+      offset:
+          indexPageSelected.value * ServicesConstants.offsetDefaultCharacters,
+    );
 
     final result =
         await getCharactersUseCase(requestPagination: requestPagination);
 
     result.fold((left) {
-      change(null,
-          status: RxStatus.error('Não foi possível exibir os personagens'));
+      change(null, status: RxStatus.error(left.message));
     }, (right) {
       change(right, status: RxStatus.success());
     });
@@ -82,8 +85,8 @@ class HomeController extends GetxController
     }
   }
 
-  goToDetailsPage() {
-    Get.to(CharacterDetailsPage());
+  goToDetailsPage({required CharacterEntity characterEntity}) {
+    Get.to(() => CharacterDetailsPage(), arguments: characterEntity);
   }
 
   onTapCloseButton() {

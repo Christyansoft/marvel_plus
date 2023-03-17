@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:marvel_plus/features/domain/entities/character_entity.dart';
 import 'package:marvel_plus/features/domain/entities/request_pagination_entity.dart';
 import 'package:marvel_plus/features/domain/use_cases/get_characters_use_case.dart';
+import 'package:marvel_plus/features/presenter/pages/character_details_page.dart';
 
 class HomeController extends GetxController
     with StateMixin<List<CharacterEntity>> {
@@ -11,7 +13,9 @@ class HomeController extends GetxController
 
   var indexPageSelected = 0.obs;
   var isLoadingAllData = true.obs;
-  final listPages = [0,1,2,3];
+  final listPages = [0, 1, 2, 3];
+  var listCharactersSearched = [].obs;
+  final textSearchController = TextEditingController();
 
   @override
   void onInit() async {
@@ -28,7 +32,7 @@ class HomeController extends GetxController
   }
 
   goToNextPage() {
-    if (indexPageSelected.value != listPages.length -1) {
+    if (indexPageSelected.value != listPages.length - 1) {
       indexPageSelected++;
 
       change([], status: RxStatus.loading());
@@ -36,7 +40,7 @@ class HomeController extends GetxController
     }
   }
 
-  goToPreviousPage(){
+  goToPreviousPage() {
     if (indexPageSelected.value != 0) {
       indexPageSelected--;
 
@@ -60,5 +64,31 @@ class HomeController extends GetxController
     });
 
     isLoadingAllData.value = false;
+  }
+
+  onChangedText(String text) {
+    if (text.isEmpty) {
+      listCharactersSearched.clear();
+      refresh();
+    } else {
+      final mainListCharacters = value;
+
+      final search = mainListCharacters
+          ?.where((element) =>
+              element.name.toLowerCase().contains(text.toLowerCase()))
+          .toList();
+      listCharactersSearched.value = List.from(search ?? []);
+      refresh();
+    }
+  }
+
+  goToDetailsPage() {
+    Get.to(CharacterDetailsPage());
+  }
+
+  onTapCloseButton() {
+    textSearchController.clear();
+    listCharactersSearched.clear();
+    refresh();
   }
 }

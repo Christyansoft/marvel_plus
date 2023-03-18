@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marvel_plus/features/data/data_sources/services/services_constants.dart';
 import 'package:marvel_plus/features/presenter/controllers/home_controller.dart';
 
 class FooterHomeWidget extends StatelessWidget {
@@ -29,6 +28,7 @@ class FooterHomeWidget extends StatelessWidget {
               ),
               Expanded(
                 child: PageView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: controller.pageController,
                     itemCount: controller.totalNumberPages,
                     onPageChanged: (index) =>
@@ -78,9 +78,7 @@ class FooterHomeWidget extends StatelessWidget {
                     }),
               ),
               GestureDetector(
-                onTap: () {
-                  controller.goToNextPage();
-                },
+                onTap: controller.goToNextPage,
                 child: Icon(
                   Icons.arrow_right,
                   size: 72,

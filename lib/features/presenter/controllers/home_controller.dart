@@ -14,7 +14,6 @@ class HomeController extends GetxController
 
   var indexPageSelected = 0.obs;
   var isLoadingAllData = true.obs;
-  final listPages = [0, 1, 2, 3];
   var listCharactersSearched = [].obs;
   final textSearchController = TextEditingController();
   final pageController = PageController();
@@ -30,7 +29,7 @@ class HomeController extends GetxController
   void onInit() async {
     listTotalCharacters = List.generate(17, (index) => index);
     totalNumberPages =
-        (listTotalCharacters.length / ServicesConstants.offsetDefaultCharacters)
+        (listTotalCharacters.length / ServicesConstants.totalPagesByScreen)
             .ceil();
 
     getCharacters();
@@ -38,8 +37,8 @@ class HomeController extends GetxController
   }
 
   List<int> getRangePages({required int index}) {
-    int start = index * ServicesConstants.offsetDefaultCharacters;
-    int end = (index + 1) * ServicesConstants.offsetDefaultCharacters;
+    int start = index * ServicesConstants.totalPagesByScreen;
+    int end = (index + 1) * ServicesConstants.totalPagesByScreen;
 
     if (end > listTotalCharacters.length) {
       end = listTotalCharacters.length;
@@ -61,18 +60,22 @@ class HomeController extends GetxController
     pageController.nextPage(
         duration: const Duration(milliseconds: 400), curve: Curves.ease);
 
-    indexPageSelected.value = listCurrentRangePages.last + 1;
-    change([], status: RxStatus.loading());
-    getCharacters();
+    if ((indexPageViewSelected + 1) != totalNumberPages) {
+      indexPageSelected.value = listCurrentRangePages.last + 1;
+      change([], status: RxStatus.loading());
+      getCharacters();
+    }
   }
 
   goToPreviousPage() {
     pageController.previousPage(
         duration: const Duration(milliseconds: 400), curve: Curves.ease);
 
-    indexPageSelected.value = listCurrentRangePages.first - 1;
-    change([], status: RxStatus.loading());
-    getCharacters();
+    if (indexPageViewSelected != 0) {
+      indexPageSelected.value = listCurrentRangePages.first - 1;
+      change([], status: RxStatus.loading());
+      getCharacters();
+    }
   }
 
   Future<void> getCharacters() async {

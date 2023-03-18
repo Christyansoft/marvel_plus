@@ -24,9 +24,11 @@ class CharacterCardWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 18),
-          Text(
-            name,
-            style: const TextStyle(fontSize: 16),
+          Expanded(
+            child: Text(
+              name,
+              style: const TextStyle(fontSize: 16),
+            ),
           )
         ],
       ),

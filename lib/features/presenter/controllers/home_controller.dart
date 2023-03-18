@@ -19,6 +19,7 @@ class HomeController extends GetxController
   final pageController = PageController();
 
   late List<int> listTotalCharacters;
+  late int itemCountPageView;
   late int totalNumberPages;
 
   int indexPageViewSelected = 0;
@@ -27,18 +28,13 @@ class HomeController extends GetxController
 
   @override
   void onInit() async {
-    listTotalCharacters = List.generate(17, (index) => index);
-    totalNumberPages =
-        (listTotalCharacters.length / ServicesConstants.totalPagesByScreen)
-            .ceil();
-
     getCharacters();
     super.onInit();
   }
 
   List<int> getRangePages({required int index}) {
-    int start = index * ServicesConstants.totalPagesByScreen;
-    int end = (index + 1) * ServicesConstants.totalPagesByScreen;
+    int start = index * ServicesConstants.totalWidgetPagePerScreen;
+    int end = (index + 1) * ServicesConstants.totalWidgetPagePerScreen;
 
     if (end > listTotalCharacters.length) {
       end = listTotalCharacters.length;
@@ -60,7 +56,7 @@ class HomeController extends GetxController
     pageController.nextPage(
         duration: const Duration(milliseconds: 400), curve: Curves.ease);
 
-    if ((indexPageViewSelected + 1) != totalNumberPages) {
+    if ((indexPageViewSelected + 1) != itemCountPageView) {
       indexPageSelected.value = listCurrentRangePages.last + 1;
       change([], status: RxStatus.loading());
       getCharacters();
@@ -91,10 +87,21 @@ class HomeController extends GetxController
     result.fold((left) {
       change(null, status: RxStatus.error(left.message));
     }, (right) {
-      change(right, status: RxStatus.success());
+      setPaginationConfig(totalCharacters: 17);
+      change(right.listCharacters, status: RxStatus.success());
     });
 
     isLoadingAllData.value = false;
+  }
+
+  setPaginationConfig({required int totalCharacters}) {
+    totalNumberPages =
+        (totalCharacters / ServicesConstants.totalPagesByScreen).ceil();
+
+    listTotalCharacters = List.generate(totalNumberPages, (index) => index);
+
+    itemCountPageView =
+        (totalNumberPages / ServicesConstants.totalWidgetPagePerScreen).ceil();
   }
 
   onChangedText(String text) {

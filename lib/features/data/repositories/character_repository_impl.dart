@@ -2,8 +2,8 @@ import 'package:either_dart/src/either.dart';
 import 'package:marvel_plus/core/errors/exceptions.dart';
 import 'package:marvel_plus/core/errors/failures.dart';
 import 'package:marvel_plus/features/data/data_sources/character_data_source.dart';
-import 'package:marvel_plus/features/domain/entities/character_entity.dart';
 import 'package:marvel_plus/features/domain/entities/request_pagination_entity.dart';
+import 'package:marvel_plus/features/domain/entities/result_character_entity.dart';
 import 'package:marvel_plus/features/domain/repositories/character_repository.dart';
 
 class CharacterRepositoryImpl implements CharacterRepository {
@@ -12,7 +12,7 @@ class CharacterRepositoryImpl implements CharacterRepository {
   CharacterRepositoryImpl({required this.characterDataSource});
 
   @override
-  Future<Either<Failure, List<CharacterEntity>>> getCharacters(
+  Future<Either<Failure,ResultCharacterEntity>> getCharacters(
       {required RequestPaginationEntity requestPagination}) async {
     try {
       final result = await characterDataSource.getCharacters(

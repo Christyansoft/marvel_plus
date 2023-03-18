@@ -7,7 +7,7 @@ import 'package:marvel_plus/core/utils/crypto_util.dart';
 import 'package:marvel_plus/features/data/data_sources/character_data_source.dart';
 import 'package:marvel_plus/features/data/data_sources/services/endpoints/marvel_endpoints.dart';
 import 'package:marvel_plus/features/data/data_sources/services/services_constants.dart';
-import 'package:marvel_plus/features/data/models/character_model.dart';
+import 'package:marvel_plus/features/data/models/result_character_model.dart';
 import 'package:marvel_plus/features/domain/entities/request_pagination_entity.dart';
 
 class CharacterDataSourceImpl implements CharacterDataSource {
@@ -16,7 +16,7 @@ class CharacterDataSourceImpl implements CharacterDataSource {
   CharacterDataSourceImpl({required this.httpClient});
 
   @override
-  Future<List<CharacterModel>> getCharacters({
+  Future<ResultCharacterModel> getCharacters({
     required RequestPaginationEntity requestPagination,
   }) async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
@@ -35,9 +35,8 @@ class CharacterDataSourceImpl implements CharacterDataSource {
       try {
         var decodedResponse = json.decode(response.data) as Map;
 
-        final jsonDataList = decodedResponse['data']['results'] as List;
+        return ResultCharacterModel.fromJson(decodedResponse['data']);
 
-        return jsonDataList.map((e) => CharacterModel.fromJson(e)).toList();
       } catch (_) {
         throw const ServerException(
             message:

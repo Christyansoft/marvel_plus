@@ -30,7 +30,7 @@ class FooterHomeWidget extends StatelessWidget {
                 child: PageView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     controller: controller.pageController,
-                    itemCount: controller.totalNumberPages,
+                    itemCount: controller.itemCountPageView,
                     onPageChanged: (index) =>
                         controller.indexPageViewSelected = index,
                     itemBuilder: (context, index) {

@@ -7,6 +7,6 @@ class ServicesConstants{
  static const int offsetDefaultCharacters = 5;
 
  static const int totalPagesByScreen = 4;
- static const int totalWidgetPagePerScreen = 4;
+ static const int totalWidgetPagePerScreen = 5;
 }
 

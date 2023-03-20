@@ -21,8 +21,8 @@ class FooterHomeWidget extends StatelessWidget {
               GestureDetector(
                 onTap: controller.goToPreviousPage,
                 child: Icon(
-                  Icons.arrow_left,
-                  size: 72,
+                  Icons.keyboard_arrow_left_sharp,
+                  size: 36,
                   color: Theme.of(context).primaryColor,
                 ),
               ),
@@ -44,32 +44,33 @@ class FooterHomeWidget extends StatelessWidget {
                           (indexCurrentPage) => Obx(
                             () {
                               final page = listCurrentPages[indexCurrentPage];
+                              final pageToShow = (page + 1).toString();
 
                               final isIndexSelected =
                                   controller.indexPageSelected.value == page;
 
                               return GestureDetector(
                                 onTap: () => controller.changePage(page),
-                                child: CircleAvatar(
-                                  radius: 20,
-                                  backgroundColor: !isIndexSelected
-                                      ? Theme.of(context).primaryColor
-                                      : Colors.transparent,
-                                  child: CircleAvatar(
-                                    radius: 19,
-                                    backgroundColor: isIndexSelected
-                                        ? Theme.of(context).primaryColor
-                                        : Colors.white,
-                                    child: Text(
-                                      (page + 1).toString(),
-                                      style: TextStyle(
-                                        color: isIndexSelected
-                                            ? Colors.white
-                                            : Theme.of(context).primaryColor,
+                                child: isIndexSelected
+                                    ? CircleAvatar(
+                                        radius: 20,
+                                        backgroundColor:
+                                            Theme.of(context).primaryColor,
+                                        child: Text(
+                                          pageToShow,
+                                          style: const TextStyle(
+                                              color: Colors.white,   fontSize: 18),
+                                        ),
+                                      )
+                                    : Text(
+                                        pageToShow,
+                                        style: TextStyle(
+                                          color: isIndexSelected
+                                              ? Colors.white
+                                              : Theme.of(context).primaryColor,
+                                          fontSize: 16
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
                               );
                             },
                           ),
@@ -80,8 +81,8 @@ class FooterHomeWidget extends StatelessWidget {
               GestureDetector(
                 onTap: controller.goToNextPage,
                 child: Icon(
-                  Icons.arrow_right,
-                  size: 72,
+                  Icons.keyboard_arrow_right_sharp,
+                  size: 36,
                   color: Theme.of(context).primaryColor,
                 ),
               ),

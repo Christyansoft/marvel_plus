@@ -55,7 +55,7 @@ void main() {
         requestPagination: requestPagination);
 
     //Assert
-    expect(result, Right(resultCharacterModel));
+    expect(result, const Right(resultCharacterModel));
     verify(() => characterDataSource.getCharacters(
         requestPagination: requestPagination)).called(1);
   });

@@ -87,7 +87,7 @@ class HomeController extends GetxController
     result.fold((left) {
       change(null, status: RxStatus.error(left.message));
     }, (right) {
-      setPaginationConfig(totalCharacters: right.totalCharacters);
+      setPaginationConfig(totalCharacters: 17);
       change(right.listCharacters, status: RxStatus.success());
     });
 
@@ -96,7 +96,7 @@ class HomeController extends GetxController
 
   setPaginationConfig({required int totalCharacters}) {
     totalNumberPages =
-        (totalCharacters / ServicesConstants.totalPagesByScreen).ceil();
+        (totalCharacters / ServicesConstants.offsetDefaultCharacters).ceil();
 
     listTotalCharacters = List.generate(totalNumberPages, (index) => index);
 

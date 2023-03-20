@@ -87,7 +87,7 @@ class HomeController extends GetxController
     result.fold((left) {
       change(null, status: RxStatus.error(left.message));
     }, (right) {
-      setPaginationConfig(totalCharacters: 17);
+      setPaginationConfig(totalCharacters: right.totalCharacters);
       change(right.listCharacters, status: RxStatus.success());
     });
 

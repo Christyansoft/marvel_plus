@@ -9,11 +9,11 @@ class FooterHomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      height: 65,
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          height: 70,
           margin: const EdgeInsets.symmetric(horizontal: 18),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,21 +28,22 @@ class FooterHomeWidget extends StatelessWidget {
               ),
               Expanded(
                 child: PageView.builder(
+
                     physics: const NeverScrollableScrollPhysics(),
                     controller: controller.pageController,
                     itemCount: controller.itemCountPageView,
                     onPageChanged: (index) =>
-                        controller.indexPageViewSelected = index,
+                    controller.indexPageViewSelected = index,
                     itemBuilder: (context, index) {
                       final listCurrentPages =
-                          controller.getRangePages(index: index);
+                      controller.getRangePages(index: index);
 
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: List.generate(
                           listCurrentPages.length,
-                          (indexCurrentPage) => Obx(
-                            () {
+                              (indexCurrentPage) => Obx(
+                                () {
                               final page = listCurrentPages[indexCurrentPage];
                               final pageToShow = (page + 1).toString();
 
@@ -53,24 +54,24 @@ class FooterHomeWidget extends StatelessWidget {
                                 onTap: () => controller.changePage(page),
                                 child: isIndexSelected
                                     ? CircleAvatar(
-                                        radius: 20,
-                                        backgroundColor:
-                                            Theme.of(context).primaryColor,
-                                        child: Text(
-                                          pageToShow,
-                                          style: const TextStyle(
-                                              color: Colors.white,   fontSize: 18),
-                                        ),
-                                      )
+                                  radius: 16,
+                                  backgroundColor:
+                                  Theme.of(context).primaryColor,
+                                  child: Text(
+                                    pageToShow,
+                                    style: const TextStyle(
+                                        color: Colors.white,   fontSize: 16),
+                                  ),
+                                )
                                     : Text(
-                                        pageToShow,
-                                        style: TextStyle(
-                                          color: isIndexSelected
-                                              ? Colors.white
-                                              : Theme.of(context).primaryColor,
-                                          fontSize: 16
-                                        ),
-                                      ),
+                                  pageToShow,
+                                  style: TextStyle(
+                                      color: isIndexSelected
+                                          ? Colors.white
+                                          : Theme.of(context).primaryColor,
+                                      fontSize: 16
+                                  ),
+                                ),
                               );
                             },
                           ),

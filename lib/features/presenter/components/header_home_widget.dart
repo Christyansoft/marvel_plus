@@ -86,22 +86,6 @@ class HeaderHomeWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        Container(
-          height: 40,
-          padding: const EdgeInsets.only(left: 92),
-          width: double.infinity,
-          color: Theme.of(context).primaryColor,
-          child: const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Nome',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ),
       ],
     );
   }

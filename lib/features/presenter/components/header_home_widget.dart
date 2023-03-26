@@ -25,7 +25,7 @@ class HeaderHomeWidget extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'BUSCA MARVEL',
+                    'MARVEL ',
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       color: Theme.of(context).primaryColor,
@@ -33,7 +33,7 @@ class HeaderHomeWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'TESTE FRONT-END',
+                    'Characters',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: 16,
@@ -42,14 +42,6 @@ class HeaderHomeWidget extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 12),
-              Text(
-                'Nome do Personagem',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 16,
-                ),
-              ),
               SizedBox(
                 height: 38,
                 child: TextFormField(

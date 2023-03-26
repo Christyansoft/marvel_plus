@@ -27,16 +27,24 @@ class HomePage extends GetView<HomeController> {
         return Scaffold(
           bottomNavigationBar: FooterHomeWidget(),
           resizeToAvoidBottomInset: false,
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(40),
+            child: AppBar(
+              title: Text('Marvel Characters'),
+              backgroundColor: Theme.of(context).primaryColor,
+            ),
+          ),
           body: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                HeaderHomeWidget(
-                  onChangedText: controller.onChangedText,
-                  onTapCloseButton: controller.onTapCloseButton,
-                  textEditingController: controller.textSearchController,
-                ),
+                // HeaderHomeWidget(
+                //   onChangedText: controller.onChangedText,
+                //   onTapCloseButton: controller.onTapCloseButton,
+                //   textEditingController: controller.textSearchController,
+                // ),
+                const SizedBox(height: 12),
                 controller.obx(
                   onLoading: Expanded(
                     child: Center(
@@ -74,6 +82,8 @@ class HomePage extends GetView<HomeController> {
                                       name: item.name,
                                       imageUrl: item
                                           .characterThumbnailEntity.imageUrl,
+                                      description: item.description,
+                                      hasSeries: item.series.isNotEmpty,
                                     ),
                                   ),
                                 ),

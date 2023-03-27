@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:marvel_plus/core/routes/routes_config.dart';
 import 'package:marvel_plus/features/domain/entities/character_entity.dart';
-import 'package:marvel_plus/features/presenter/components/character_card_widget.dart';
-import 'package:marvel_plus/features/presenter/components/footer_home_widget.dart';
-import 'package:marvel_plus/features/presenter/components/header_home_widget.dart';
-import 'package:marvel_plus/features/presenter/controllers/home_controller.dart';
+import 'package:marvel_plus/features/home/presenter/components/character_card_widget.dart';
+import 'package:marvel_plus/features/home/presenter/components/footer_home_widget.dart';
+import 'package:marvel_plus/features/home/presenter/controllers/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
@@ -28,10 +28,19 @@ class HomePage extends GetView<HomeController> {
           bottomNavigationBar: FooterHomeWidget(),
           resizeToAvoidBottomInset: false,
           appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(40),
+            preferredSize: const Size.fromHeight(45),
             child: AppBar(
-              title: Text('Marvel Characters'),
+              title: const Text('Marvel Characters'),
               backgroundColor: Theme.of(context).primaryColor,
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Get.toNamed(RoutesConfig.searchCharacterPage,
+                        arguments: controller.value);
+                  },
+                  icon: const Icon(Icons.search),
+                )
+              ],
             ),
           ),
           body: SafeArea(
@@ -39,11 +48,6 @@ class HomePage extends GetView<HomeController> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // HeaderHomeWidget(
-                //   onChangedText: controller.onChangedText,
-                //   onTapCloseButton: controller.onTapCloseButton,
-                //   textEditingController: controller.textSearchController,
-                // ),
                 const SizedBox(height: 12),
                 controller.obx(
                   onLoading: Expanded(
@@ -54,14 +58,7 @@ class HomePage extends GetView<HomeController> {
                     ),
                   ),
                   (state) {
-                    late List<CharacterEntity> listCharacters;
-
-                    if (controller.listCharactersSearched.isNotEmpty) {
-                      listCharacters =
-                          List.from(controller.listCharactersSearched);
-                    } else {
-                      listCharacters = state ?? [];
-                    }
+                    final List<CharacterEntity> listCharacters = state ?? [];
 
                     return Expanded(
                       child: SingleChildScrollView(

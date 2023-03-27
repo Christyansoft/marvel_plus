@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvel_plus/features/domain/entities/character_entity.dart';
-import 'package:marvel_plus/features/presenter/controllers/home_controller.dart';
+import 'package:marvel_plus/features/home/presenter/controllers/home_controller.dart';
 
 class CharacterDetailsPage extends StatelessWidget {
   CharacterDetailsPage({super.key});

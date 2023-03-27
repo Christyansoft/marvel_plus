@@ -1,16 +1,15 @@
-# marvel_plus
 
-A new Flutter project.
+# Marvel Plus
 
-## Getting Started
+Aplicativo para fans dos personagens da Marvel.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+# Instruções para rodar o app
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Obtenha as credenciais da api pública da [Marvel](https://developer.marvel.com/)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. Configure as variáveis de ambiente no arquivo de configurações da sua IDE.
+
+![Variable environmnet](https://www.linkpicture.com/q/environment_variables_vs_code.png)
+
+3. Isso é tudo!

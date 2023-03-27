@@ -24,7 +24,7 @@ void main() {
   });
 
   final characterJson = jsonRead('characters.json');
-  final requestPagination = RequestPaginationModel(limit: 4, offset: 0);
+  const requestPagination = RequestPaginationModel(limit: 4, offset: 0);
 
   const resultCharacterModel = ResultCharacterModel(
     totalCharacters: 1,

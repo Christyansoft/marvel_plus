@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvel_plus/features/domain/entities/character_entity.dart';
-import 'package:marvel_plus/features/presenter/controllers/home_controller.dart';
+import 'package:marvel_plus/features/home/presenter/controllers/home_controller.dart';
 
 class CharacterDetailsPage extends StatelessWidget {
   CharacterDetailsPage({super.key});
@@ -56,8 +56,7 @@ class CharacterDetailsPage extends StatelessWidget {
                             ? 'No Description'
                             : character.description,
                         style: const TextStyle(
-                          fontSize: 18,
-                        ),
+                            fontSize: 16, color: Colors.black54),
                       ),
                       const SizedBox(height: 20),
                       Text(
@@ -90,14 +89,15 @@ class CharacterDetailsPage extends StatelessWidget {
                                   children: [
                                     Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                       children: [
                                         CircleAvatar(
-                                          radius: 18,
+                                          radius: 16,
                                           backgroundColor:
                                               Theme.of(context).primaryColor,
                                           child: const Icon(
                                             Icons.star,
+                                            size: 20,
                                             color: Colors.white,
                                           ),
                                         ),
@@ -109,8 +109,9 @@ class CharacterDetailsPage extends StatelessWidget {
                                             item.name,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
-                                            style:
-                                                const TextStyle(fontSize: 18),
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black54),
                                           ),
                                         )
                                       ],

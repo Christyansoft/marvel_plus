@@ -42,7 +42,7 @@ void main() {
     ],
   );
 
-  final requestPagination = RequestPaginationModel(limit: 4, offset: 0);
+  const requestPagination = RequestPaginationModel(limit: 4, offset: 0);
 
   test('should return a list of model when data source was called', () async {
     // Arrange

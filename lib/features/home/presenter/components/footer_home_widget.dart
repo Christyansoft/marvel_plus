@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marvel_plus/features/presenter/controllers/home_controller.dart';
+import 'package:marvel_plus/features/home/presenter/controllers/home_controller.dart';
 
 class FooterHomeWidget extends StatelessWidget {
   FooterHomeWidget({super.key});
@@ -9,11 +9,12 @@ class FooterHomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Container(
+      padding: const EdgeInsets.only(bottom: 12),
+      height: 50,
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          height: 70,
           margin: const EdgeInsets.symmetric(horizontal: 18),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,6 +27,7 @@ class FooterHomeWidget extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                 ),
               ),
+              const SizedBox(width: 12),
               Expanded(
                 child: PageView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -51,26 +53,16 @@ class FooterHomeWidget extends StatelessWidget {
 
                               return GestureDetector(
                                 onTap: () => controller.changePage(page),
-                                child: isIndexSelected
-                                    ? CircleAvatar(
-                                        radius: 20,
-                                        backgroundColor:
-                                            Theme.of(context).primaryColor,
-                                        child: Text(
-                                          pageToShow,
-                                          style: const TextStyle(
-                                              color: Colors.white,   fontSize: 18),
-                                        ),
-                                      )
-                                    : Text(
-                                        pageToShow,
-                                        style: TextStyle(
-                                          color: isIndexSelected
-                                              ? Colors.white
-                                              : Theme.of(context).primaryColor,
-                                          fontSize: 16
-                                        ),
-                                      ),
+                                child: Text(
+                                  pageToShow,
+                                  style: TextStyle(
+                                    color: isIndexSelected
+                                        ? Theme.of(context).primaryColor
+                                        : Colors.grey,
+                                    fontSize: 16,
+                                    fontWeight: isIndexSelected ? FontWeight.bold : null
+                                  ),
+                                ),
                               );
                             },
                           ),
@@ -78,6 +70,7 @@ class FooterHomeWidget extends StatelessWidget {
                       );
                     }),
               ),
+              const SizedBox(width: 12),
               GestureDetector(
                 onTap: controller.goToNextPage,
                 child: Icon(

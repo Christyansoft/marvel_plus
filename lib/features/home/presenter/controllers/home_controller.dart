@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvel_plus/features/data/data_sources/services/services_constants.dart';
 import 'package:marvel_plus/features/domain/entities/character_entity.dart';
 import 'package:marvel_plus/features/domain/entities/request_pagination_entity.dart';
 import 'package:marvel_plus/features/domain/use_cases/get_characters_use_case.dart';
-import 'package:marvel_plus/features/presenter/pages/character_details_page.dart';
+import 'package:marvel_plus/core/routes/routes_config.dart';
 
 class HomeController extends GetxController
     with StateMixin<List<CharacterEntity>> {
@@ -14,8 +14,8 @@ class HomeController extends GetxController
 
   var indexPageSelected = 0.obs;
   var isLoadingAllData = true.obs;
-  var listCharactersSearched = [].obs;
-  final textSearchController = TextEditingController();
+
+
   final pageController = PageController();
 
   late List<int> listTotalCharacters;
@@ -104,29 +104,11 @@ class HomeController extends GetxController
         (totalNumberPages / ServicesConstants.totalWidgetPagePerScreen).ceil();
   }
 
-  onChangedText(String text) {
-    if (text.isEmpty) {
-      listCharactersSearched.clear();
-      refresh();
-    } else {
-      final mainListCharacters = value;
 
-      final search = mainListCharacters
-          ?.where((element) =>
-              element.name.toLowerCase().contains(text.toLowerCase()))
-          .toList();
-      listCharactersSearched.value = List.from(search ?? []);
-      refresh();
-    }
-  }
 
   goToDetailsPage({required CharacterEntity characterEntity}) {
-    Get.to(() => CharacterDetailsPage(), arguments: characterEntity);
+    Get.toNamed(RoutesConfig.characterDetailsPage, arguments: characterEntity);
   }
 
-  onTapCloseButton() {
-    textSearchController.clear();
-    listCharactersSearched.clear();
-    refresh();
-  }
+
 }
